@@ -49,25 +49,12 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(1);
         }
-        //if (Input.GetKeyDown(KeyCode.Space) && canDash)
-        //{
-        //    isDashing = true;
-        //    canDash = false;
-        //    tr.emitting = true;
-        //    dashingDirection = new Vector2(movement.x, movement.y);
-        //    if (dashingDirection == Vector2.zero)
-        //    {
-        //        dashingDirection = new Vector2(transform.localScale.x, 0f);
-        //    }
-        //}
 
         movement.y = Input.GetAxis("Vertical");
         movement.x = Input.GetAxis("Horizontal");
 
         Movement();
         Rotation();
-
-        //TongueGrapple();
 
         playerPosition = transform.position;
     }
@@ -78,31 +65,15 @@ public class PlayerController : MonoBehaviour
         healthBar.SetHealth(currentHeath);
     }
 
-    //public IEnumerator Dash()
-    //{
-    //    canDash = false;
-    //    isDashing = true;
-    //    float originalGravity = rb.gravityScale;
-    //    rb.gravityScale = 0f;
-    //    rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
-    //    tr.emitting = true;
-    //    yield return new WaitForSeconds(dashingTime);
-    //    tr.emitting = false;
-    //    rb.gravityScale = originalGravity;
-    //    isDashing = false;
-
-    //    yield return new WaitForSeconds(dashCooldown);
-    //    canDash = true;
-    //}
-
     private void Rotation()
     {
-        if (Input.GetKeyDown(KeyCode.A) && transform.rotation != null)
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.SetPositionAndRotation(transform.position, transform.rotation);
+            playerSprite.flipX = true;
         }
         if (Input.GetKey(KeyCode.D))
         {
+            playerSprite.flipX = false;
         }
     }
 
