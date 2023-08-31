@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.UI;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,11 +16,13 @@ public class PlayerController : MonoBehaviour
 
     //health
     public int maxHealth = 5;
+
     public int currentHeath;
     public Health healthBar;
 
     //dashing
     public bool canDash;
+
     public bool isDashing;
     private Vector2 dashingDirection;
     private float dashCooldown = 2;

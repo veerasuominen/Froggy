@@ -37,13 +37,14 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision");
-        if (collision.gameObject.name == "Tongue(Clone)")
+        Debug.Log("Collision detected");
+        if (collision.gameObject.name == "Tongue")
         {
             Destroy(gameObject);
         }
+
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
