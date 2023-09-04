@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    public float range = 10;
+    public float range = 8;
     public Vector2 startPosition;
 
     // Start is called before the first frame update

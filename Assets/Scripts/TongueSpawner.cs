@@ -5,6 +5,7 @@ using UnityEngine;
 public class TongueSpawner : MonoBehaviour
 {
     public GameObject tonguePrefab;
+    public GameObject rockPrefab;
     public GameObject snakePrefab;
     public Rigidbody2D rb;
     public Vector2 mousePosition;

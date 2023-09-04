@@ -1,12 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform target;
+    [SerializeField] private Transform target;
     public float range = 8;
     public string turretsEnemy = "Player";
+    public Rigidbody2D partToRotateRB;
+    public GameObject partToRotate;
+    public GameObject enemyBullet;
+    public bool readyToShoot;
+
+    private void Start()
+    {
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        readyToShoot = true;
+    }
+
+    private void Update()
+    {
+        if (target == null)
+            return;
+
+        Vector2 aimDirection = target.position - partToRotate.transform.position;
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+        partToRotateRB.MoveRotation(aimAngle);
+
+        if (target != null && readyToShoot == true)
+        {
+            StartCoroutine(Shoot());
+        }
+    }
 
     private void UpdateTarget()
     {
@@ -29,6 +55,18 @@ public class Enemy : MonoBehaviour
         {
             target = nearestEnemy.transform;
         }
+        else
+        {
+            target = null;
+        }
+    }
+
+    private IEnumerator Shoot()
+    {
+        readyToShoot = false;
+        Instantiate(enemyBullet, partToRotate.transform.position, partToRotate.transform.rotation);
+        yield return new WaitForSeconds(1f);
+        readyToShoot = true;
     }
 
     private void OnDrawGizmosSelected()
