@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575dccba14234d44491efab904f991a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 6
+  range: 5
   startPosition: {x: 0, y: 0}
 --- !u!96 &6172064147216922249
 TrailRenderer:

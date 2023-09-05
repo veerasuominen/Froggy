@@ -14,13 +14,17 @@ public class RockProjectile : MonoBehaviour
         startPosition = transform.position;
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        transform.Translate(Vector3.up);
-
-        if (Vector2.Distance(startPosition, transform.position) >= range)
+        if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("Rock collision detected");
             Destroy(gameObject);
         }
+    }
+
+    public void Move()
+    {
+        transform.Translate(Vector3.up);
     }
 }

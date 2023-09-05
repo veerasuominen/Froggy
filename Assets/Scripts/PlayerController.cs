@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 
 using UnityEngine;
@@ -7,35 +8,41 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player")]
     public Rigidbody2D rb;
+
     public SpriteRenderer playerSprite;
     public Vector2 movement;
     public float movementSpeed = 5;
     public float sprintSpeed = 2;
     public bool sprinting;
+    public TrailRenderer tr;
 
-    //health
+    [Header("HealthBar")]
     public int maxHealth = 5;
 
     public int currentHeath;
     public Health healthBar;
 
-    //dashing
+    [Header("Dashing")]
     public bool canDash;
 
     public bool isDashing;
     private Vector2 dashingDirection;
     private float dashCooldown = 2;
     private float dashingVelocity = 5;
-    public TrailRenderer tr;
 
+    [Header("Shooting")]
     public GameObject tongue;
+
     public Collider2D rangeCollider;
     public bool isInRange;
     public float tongueSpeed = 10;
     public bool arrowPressed;
     public Vector2 playerPosition;
     public Vector2 mousePosition;
+
+    public string enemyBullet;
 
     // Start is called before the first frame update
     private void Start()
@@ -47,11 +54,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F))
+        if (sprinting == true)
         {
-            TakeDamage(1);
+            tr.emitting = true;
         }
-
+        else
+        {
+            tr.emitting = false;
+        }
         movement.y = Input.GetAxis("Vertical");
         movement.x = Input.GetAxis("Horizontal");
 
@@ -59,6 +69,15 @@ public class PlayerController : MonoBehaviour
         Rotation();
 
         playerPosition = transform.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == enemyBullet)
+        {
+            TakeDamage(1);
+            Debug.Log("Damage applied");
+        }
     }
 
     private void TakeDamage(int damage)

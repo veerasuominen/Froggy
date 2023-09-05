@@ -65,7 +65,13 @@ public class Enemy : MonoBehaviour
     {
         readyToShoot = false;
         Instantiate(enemyBullet, partToRotate.transform.position, partToRotate.transform.rotation);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(enemyBullet, partToRotate.transform.position, partToRotate.transform.rotation);
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(enemyBullet, partToRotate.transform.position, partToRotate.transform.rotation);
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(enemyBullet, partToRotate.transform.position, partToRotate.transform.rotation);
+        yield return new WaitForSeconds(3f);
         readyToShoot = true;
     }
 
@@ -77,6 +83,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Rock")
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
         Debug.Log("Collision detected");
         if (collision.gameObject.name == "Tongue")
         {
